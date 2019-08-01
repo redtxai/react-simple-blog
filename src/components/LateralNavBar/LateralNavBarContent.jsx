@@ -39,13 +39,19 @@ const PostBlock = styled.div`
 
 
 class LateralNavBarContent extends Component {
+  compare(a, b){
+    if (a.metadata.publishedAt > b.metadata.publishedAt) return 1;
+    if (b.metadata.publishedAt > a.metadata.publishedAt) return -1;
+    return 0;
+  }
+
   render() {
     const { postsData } = this.props
     return (
       <Wrapper>
         <Header>Summary</Header>
         {
-          postsData.map((post, index) => {
+          postsData.sort(this.compare).map((post, index) => {
             return <PostBlock key={index}>{post.title}</PostBlock>
           })
         }
