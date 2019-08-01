@@ -5,6 +5,7 @@ import { fetchPostsData, fetchAuthorsData } from './actions'
 
 import GlobalStyle from './themes/globalStyle'
 import Header from './components/Header'
+import LateralNavBar from './components/LateralNavBar'
 
 class App extends Component {
   constructor(props) {
@@ -33,9 +34,15 @@ class App extends Component {
   }
 
   render() {
+    const { routeState } = this.props
+    let lateralNavbar = null
+    if (routeState === 'home') {
+      lateralNavbar = <LateralNavBar/>
+    }
     return (
       <Fragment>
         <Header/>
+        {lateralNavbar}
         <GlobalStyle />
         <Routes/>
       </Fragment>
@@ -45,7 +52,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   postsData: state.reducer.postsData,
-  authorsData: state.reducer.authorsData
+  authorsData: state.reducer.authorsData,
+  routeState: state.reducer.routeState
 })
 
 const mapDispatchToProps = dispatch => {
