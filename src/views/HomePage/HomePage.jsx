@@ -67,11 +67,16 @@ class HomePage extends Component {
   }
 
   render() {
-    const { postsData } = this.props
+    const { postsData, authorsData } = this.props
+    let searchBox
+    if (authorsData.length) {
+      searchBox = <SearchBox onType={this.getFilterValue} authorsData={authorsData}/>
+    }
+
     return (
       <Section>
         <FilterWrapper>
-          <SearchBox onType={this.getFilterValue}/>
+          {searchBox}
         </FilterWrapper>
         <Wrapper>
           {
