@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Routes from './routes'
-
 import { fetchPostsData, fetchAuthorsData } from './actions'
+
+import GlobalStyle from './themes/globalStyle'
+import Header from './components/Header'
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +33,13 @@ class App extends Component {
   }
 
   render() {
-    return <Routes/>
+    return (
+      <Fragment>
+        <Header/>
+        <GlobalStyle />
+        <Routes/>
+      </Fragment>
+    )
   }
 }
 

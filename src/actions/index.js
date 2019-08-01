@@ -2,7 +2,8 @@ import {
   FETCHING_POSTS_DATA,
   FETCHED_POSTS_DATA,
   FETCHING_AUTHORS_DATA,
-  FETCHED_AUTHORS_DATA
+  FETCHED_AUTHORS_DATA,
+  ROUTE_CHANGED
   } from './types'
 import axios from 'axios'
 
@@ -63,5 +64,12 @@ export const fetchedAuthorsData = (authorsData) => {
     type: FETCHED_AUTHORS_DATA,
     fetchedAuthorsData,
     authorsData
+  }
+}
+
+export const routeChanged = (routeState) => {
+  return {
+    type: ROUTE_CHANGED,
+    routeState
   }
 }
