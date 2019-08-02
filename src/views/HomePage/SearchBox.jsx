@@ -22,7 +22,7 @@ const Search = styled.p`
   display: flex;
 `
 
-const Label = styled.label`
+const FilterLabel = styled.label`
   width: 100%;
   font-weight: bold;
   color: #6A6B6D;
@@ -49,6 +49,7 @@ const DeepFilterCaret = styled.img`
 const DeepFilter = styled.section`
   width: 100%;
   display: flex;
+  justify-content: space-between;
   color: #6A6B6D;
   font-weight: bold;
   transition:  max-height ${props => (props.show ? '1s ease-in' : '0.4s ease-out')};
@@ -56,35 +57,46 @@ const DeepFilter = styled.section`
   overflow: hidden;
 `
 
-const AuthorFilter = styled.div`
-  width: 60%;
+const TitleLabel = styled.label`
+  margin-bottom: 10px;
+`
+
+const AuthorColumn = styled.div`
+  margin-top: 15px;
   padding: 5px 5px 5px 0px;
   display: flex;
   flex-direction: column;
 `
 
 const AuthorLabel = styled.label`
-  width: 100%;
+  padding: 5px;
   color: #6A6B6D;
+  border-radius: 5px;
   font-weight: ${props => (props.authorSelected ? 'bold' : 'normal')};
 
   &:hover {
     cursor: pointer;
+    background-color: #EBECEE;
   }
 `
 
 const SortColumn = styled.div`
-  width: 40%;
+  min-width: 40%;
+  margin-top: 15px;
   padding: 5px 0px 5px 5px;
+  display: flex;
+  flex-direction: column;
 `
 
 const SortLabel = styled.label`
-  width: 100%;
+  padding: 5px;
   color: #6A6B6D;
   font-weight: normal;
+  border-radius: 5px;
 
   &:hover {
     cursor: pointer;
+    background-color: #EBECEE;
   }
 `
 
@@ -107,17 +119,17 @@ class SearchBox extends Component {
     return (
       <Wrapper>
         <Search>
-          <Label>
+          <FilterLabel>
             Filter: <InputField onKeyUp={onType} placeholder="Search for post title..."/>
-          </Label>
+          </FilterLabel>
           <DeepFilterCaret 
             src={caret}
             onClick={() => this.setState({ show: !this.state.show })}/>
         </Search>
         <DeepFilter
           show={this.state.show}>
-          <AuthorFilter>
-            By Author:
+          <AuthorColumn>
+            <TitleLabel>By Author:</TitleLabel>
             {
               authorsData.map((author) => {
                 return (
@@ -130,9 +142,9 @@ class SearchBox extends Component {
                 )
               })
             }
-          </AuthorFilter>
+          </AuthorColumn>
           <SortColumn>
-            Sort:
+            <TitleLabel>Sort:</TitleLabel>
             <SortLabel>Author</SortLabel>
             <SortLabel>Date</SortLabel>
             <SortLabel>Title</SortLabel>
