@@ -31,7 +31,6 @@ const FilterLabel = styled.label`
 
 const InputField = styled.input`
   border-radius: 5px;
-  margin-left: 12px;
   margin-right: 12px;
   flex: 2;
 `
@@ -40,6 +39,8 @@ const DeepFilterCaret = styled.img`
   margin: auto;
   width: 20px;
   height: 20px;
+  transform: rotate(${props => (props.show ? '180' : '0')}deg);
+  transition: transform ${props => (props.show ? '1' : '0.4')}s;
 
   &:hover {
     cursor: pointer;
@@ -88,16 +89,40 @@ const SortColumn = styled.div`
   flex-direction: column;
 `
 
-const SortLabel = styled.label`
+const SortParagraph = styled.p`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 5px;
-  color: #6A6B6D;
-  font-weight: normal;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: ${props => (props.sortProperty ? 'bold' : 'normal')};
   border-radius: 5px;
 
   &:hover {
     cursor: pointer;
     background-color: #EBECEE;
   }
+`
+
+const SortLabel = styled.label`
+  color: #6A6B6D;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const SortSvg = styled.svg`
+  visibility: ${props => (props.sortProperty ? 'visible' : 'hidden')};
+  transform: rotate(${props => (props.sortProperty > 0 ? '90' : '-90')}deg);
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+const SortPath = styled.path`
+  fill: #6A6B6D;
 `
 
 class SearchBox extends Component {
@@ -115,21 +140,22 @@ class SearchBox extends Component {
   }
 
   render() {
-    const { authorsData, onType, authorFilter } = this.props
+    const { authorsData, onType, authorFilter, sortProperty, toggleSortProperties } = this.props
     return (
       <Wrapper>
         <Search>
           <FilterLabel>
-            Filter: <InputField onKeyUp={onType} placeholder="Search for post title..."/>
+            <InputField onKeyUp={onType} placeholder="Search for post title..."/>
           </FilterLabel>
           <DeepFilterCaret 
             src={caret}
+            show={this.state.show}
             onClick={() => this.setState({ show: !this.state.show })}/>
         </Search>
         <DeepFilter
           show={this.state.show}>
           <AuthorColumn>
-            <TitleLabel>By Author:</TitleLabel>
+            <TitleLabel>Filter by Author:</TitleLabel>
             {
               authorsData.map((author) => {
                 return (
@@ -144,10 +170,46 @@ class SearchBox extends Component {
             }
           </AuthorColumn>
           <SortColumn>
-            <TitleLabel>Sort:</TitleLabel>
-            <SortLabel>Author</SortLabel>
-            <SortLabel>Date</SortLabel>
-            <SortLabel>Title</SortLabel>
+            <TitleLabel>Sort by:</TitleLabel>
+            <SortParagraph sortProperty={sortProperty.authorSort} onClick={() => toggleSortProperties('authorSort')}>
+              <SortLabel>Author</SortLabel>
+              <SortSvg sortProperty={sortProperty.authorSort}
+                enable-background="new 0 0 32 32"
+                height="16px"
+                id="Layer_1"
+                version="1.1"
+                viewBox="0 0 32 32"
+                width="16px"
+                xmlns="http://www.w3.org/2000/svg">
+                <SortPath d="M24.291,14.276L14.705,4.69c-0.878-0.878-2.317-0.878-3.195,0l-0.8,0.8c-0.878,0.877-0.878,2.316,0,3.194  L18.024,16l-7.315,7.315c-0.878,0.878-0.878,2.317,0,3.194l0.8,0.8c0.878,0.879,2.317,0.879,3.195,0l9.586-9.587  c0.472-0.471,0.682-1.103,0.647-1.723C24.973,15.38,24.763,14.748,24.291,14.276z"/>
+              </SortSvg>
+            </SortParagraph>
+            <SortParagraph sortProperty={sortProperty.dateSort} onClick={() => toggleSortProperties('dateSort')}>
+              <SortLabel>Date</SortLabel>
+              <SortSvg sortProperty={sortProperty.dateSort}
+                enable-background="new 0 0 32 32"
+                height="16px"
+                id="Layer_1"
+                version="1.1"
+                viewBox="0 0 32 32"
+                width="16px"
+                xmlns="http://www.w3.org/2000/svg">
+                <SortPath d="M24.291,14.276L14.705,4.69c-0.878-0.878-2.317-0.878-3.195,0l-0.8,0.8c-0.878,0.877-0.878,2.316,0,3.194  L18.024,16l-7.315,7.315c-0.878,0.878-0.878,2.317,0,3.194l0.8,0.8c0.878,0.879,2.317,0.879,3.195,0l9.586-9.587  c0.472-0.471,0.682-1.103,0.647-1.723C24.973,15.38,24.763,14.748,24.291,14.276z"/>
+              </SortSvg>
+            </SortParagraph>
+            <SortParagraph sortProperty={sortProperty.titleSort} onClick={() => toggleSortProperties('titleSort')}>
+              <SortLabel>Title</SortLabel>
+              <SortSvg sortProperty={sortProperty.titleSort}
+                enable-background="new 0 0 32 32"
+                height="16px"
+                id="Layer_1"
+                version="1.1"
+                viewBox="0 0 32 32"
+                width="16px"
+                xmlns="http://www.w3.org/2000/svg">
+                <SortPath d="M24.291,14.276L14.705,4.69c-0.878-0.878-2.317-0.878-3.195,0l-0.8,0.8c-0.878,0.877-0.878,2.316,0,3.194  L18.024,16l-7.315,7.315c-0.878,0.878-0.878,2.317,0,3.194l0.8,0.8c0.878,0.879,2.317,0.879,3.195,0l9.586-9.587  c0.472-0.471,0.682-1.103,0.647-1.723C24.973,15.38,24.763,14.748,24.291,14.276z"/>
+              </SortSvg>
+            </SortParagraph>
           </SortColumn>
         </DeepFilter>
       </Wrapper>

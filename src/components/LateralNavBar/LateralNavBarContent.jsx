@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import { compare } from '../../utils/compare'
+import { compareMetadata } from '../../utils/compare'
 
 const Wrapper = styled.div`
   width: 280px;
@@ -47,7 +47,7 @@ class LateralNavBarContent extends Component {
       <Wrapper>
         <Header>Summary</Header>
           {
-            postsData.sort(compare).map((post, index) => {
+            postsData.sort(compareMetadata).map((post, index) => {
               return <PostBlock key={index}>{post.title}</PostBlock>
             })
           }

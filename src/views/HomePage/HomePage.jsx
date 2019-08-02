@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import { compare } from '../../utils/compare'
+import { compare, compareMetadata } from '../../utils/compare'
 import { dateString } from '../../utils/dateUtils'
 import SearchBox from './SearchBox'
 import PostBlock from './PostBlock'
@@ -42,12 +42,19 @@ class HomePage extends Component {
     super(props)
     this.state = {
       filter: '',
-      authorFilter: 0
+      authorFilter: 0,
+      sortProperty: {
+        dateSort: 1,
+        authorSort: 0,
+        titleSort: 0
+      }
     }
     this.getAuthorName = this.getAuthorName.bind(this)
     this.getFilterValue = this.getFilterValue.bind(this)
     this.getConditionalRendering = this.getConditionalRendering.bind(this)
     this.getAuthorFilter = this.getAuthorFilter.bind(this)
+    this.getSort = this.getSort.bind(this)
+    this.toggleSortProperties = this.toggleSortProperties.bind(this)
   }
 
   getAuthorName(authorId) {
@@ -80,11 +87,38 @@ class HomePage extends Component {
     this.setState({ authorFilter: authorId })
   }
 
+  getSort(a, b) {
+    const { dateSort, titleSort } = this.state.sortProperty
+    return compareMetadata(a, b, 'publishedAt', dateSort) || compare(a, b, 'title', titleSort)
+  }
+
+  toggleSortProperties(prop) {
+    const { sortProperty } = this.state
+    sortProperty[prop] = sortProperty[prop] > 0 ? sortProperty[prop] - 2 : ++sortProperty[prop]
+
+    for (let key in sortProperty) {
+      if (key !== prop) {
+        sortProperty[key] = 0
+      }
+    }
+    this.setState({ sortProperty: sortProperty })
+  }
+
   render() {
     const { postsData, authorsData } = this.props
+    const { authorFilter, sortProperty } = this.state
     let searchBox
+
     if (authorsData.length) {
-      searchBox = <SearchBox onType={this.getFilterValue} getAuthorFilter={this.getAuthorFilter} authorsData={authorsData} authorFilter={this.state.authorFilter}/>
+      searchBox = (
+        <SearchBox
+          onType={this.getFilterValue}
+          getAuthorFilter={this.getAuthorFilter}
+          authorsData={authorsData}
+          authorFilter={authorFilter}
+          sortProperty={sortProperty}
+          toggleSortProperties={this.toggleSortProperties}/>
+      )
     }
 
     return (
@@ -94,7 +128,7 @@ class HomePage extends Component {
         </FilterWrapper>
         <Wrapper>
           {
-            postsData.sort(compare).map((post, index) => {
+            postsData.sort(this.getSort).map((post, index) => {
               const dateFormatted = dateString(post.metadata.publishedAt)
               if (this.getConditionalRendering(post)) {
                 return <PostBlock
