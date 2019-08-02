@@ -41,11 +41,13 @@ class HomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      filter: ''
+      filter: '',
+      authorFilter: 0
     }
     this.getAuthorName = this.getAuthorName.bind(this)
     this.getFilterValue = this.getFilterValue.bind(this)
     this.getConditionalRendering = this.getConditionalRendering.bind(this)
+    this.getAuthorFilter = this.getAuthorFilter.bind(this)
   }
 
   getAuthorName(authorId) {
@@ -61,16 +63,28 @@ class HomePage extends Component {
     this.setState({ filter: target.value })
   }
 
-  getConditionalRendering(post) {
-    return !this.state.filter
-      || post.title.toUpperCase().includes(this.state.filter.toUpperCase())
+  getConditionalRendering({ title, metadata }) {
+    const { filter, authorFilter } = this.state
+    return (
+        !filter
+        || title.toUpperCase().includes(filter.toUpperCase())
+      ) && (
+        !authorFilter || authorFilter === metadata.authorId
+      )
+  }
+
+  getAuthorFilter(authorId) {
+    if (authorId === this.state.authorFilter) {
+      authorId = 0
+    }
+    this.setState({ authorFilter: authorId })
   }
 
   render() {
     const { postsData, authorsData } = this.props
     let searchBox
     if (authorsData.length) {
-      searchBox = <SearchBox onType={this.getFilterValue} authorsData={authorsData}/>
+      searchBox = <SearchBox onType={this.getFilterValue} getAuthorFilter={this.getAuthorFilter} authorsData={authorsData} authorFilter={this.state.authorFilter}/>
     }
 
     return (

@@ -66,7 +66,7 @@ const AuthorFilter = styled.div`
 const AuthorLabel = styled.label`
   width: 100%;
   color: #6A6B6D;
-  font-weight: normal;
+  font-weight: ${props => (props.authorSelected ? 'bold' : 'normal')};
 
   &:hover {
     cursor: pointer;
@@ -78,16 +78,32 @@ const SortColumn = styled.div`
   padding: 5px 0px 5px 5px;
 `
 
+const SortLabel = styled.label`
+  width: 100%;
+  color: #6A6B6D;
+  font-weight: normal;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 class SearchBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
       show: false
     }
+    this.handleFilter = this.handleFilter.bind(this)
+  }
+
+  handleFilter(authorId) {
+    const { getAuthorFilter } = this.props
+    getAuthorFilter(authorId)
   }
 
   render() {
-    const { authorsData, onType } = this.props
+    const { authorsData, onType, authorFilter } = this.props
     return (
       <Wrapper>
         <Search>
@@ -104,12 +120,22 @@ class SearchBox extends Component {
             By Author:
             {
               authorsData.map((author) => {
-                return <AuthorLabel key={author.id}>{author.name}</AuthorLabel>
+                return (
+                  <AuthorLabel
+                    authorSelected={authorFilter === author.id}
+                    onClick={() => this.handleFilter(author.id)}
+                    key={author.id}>
+                    {author.name}
+                  </AuthorLabel>
+                )
               })
             }
           </AuthorFilter>
           <SortColumn>
             Sort:
+            <SortLabel>Author</SortLabel>
+            <SortLabel>Date</SortLabel>
+            <SortLabel>Title</SortLabel>
           </SortColumn>
         </DeepFilter>
       </Wrapper>
