@@ -43,8 +43,20 @@ const PostBlock = styled.div`
 `
 
 class LateralNavBarContent extends Component {
+  constructor(props) {
+    super(props)
+    
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(postId) {
+    const { selectPost, history } = this.props
+    selectPost()
+    history.push(`/${postId}`)
+  }
+
   render() {
-    const { postsData, location, history } = this.props
+    const { postsData, location } = this.props
     const { pathname } = location
     return (
       <Wrapper>
@@ -54,7 +66,7 @@ class LateralNavBarContent extends Component {
               return (
                 <PostBlock
                   key={index}
-                  onClick={ () => history.push(`/${post.id}`) }
+                  onClick={ () => this.handleClick(post.id) }
                   selected={pathname === '/' + post.id}>
                     {post.title}
                 </PostBlock>

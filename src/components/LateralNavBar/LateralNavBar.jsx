@@ -45,7 +45,7 @@ class LateralNavBar extends Component {
     return (
       <LateralNavBarRoot show={this.state.active}>
         <LateralNavBarTrigger onClick={ () => this.setState({active: !this.state.active}) }/>
-        <LateralNavBarContent/>
+        <LateralNavBarContent selectPost={ () => this.setState({active: !this.state.active}) }/>
       </LateralNavBarRoot>
     )
   }
