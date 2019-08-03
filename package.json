@@ -17,7 +17,7 @@
     "styled-components": "^4.3.2"
   },
   "scripts": {
-    "postinstall": "yarn build",
+    "postinstall": "npm run build",
     "start": "node server.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
