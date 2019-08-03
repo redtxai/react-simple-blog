@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import LateralNavBar from '../components/LateralNavBar'
 import HomePage from '../views/HomePage'
 import PostPage from '../views/PostPage'
+import AboutPage from '../views/AboutPage'
 
 class Routes extends Component {
   constructor (props) {
@@ -26,6 +27,10 @@ class Routes extends Component {
           <Header/>
           <LateralNavBar/>
           <Switch>
+            <Route exact path="/about" render={(props) => { 
+              this.onRouteChange('about')
+              return <AboutPage {...props} />
+            }}/>
             <Route exact path="/" render={(props) => { 
               this.onRouteChange('home')
               return <HomePage {...props} />
