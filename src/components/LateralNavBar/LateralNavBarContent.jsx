@@ -51,9 +51,11 @@ class LateralNavBarContent extends Component {
         <Header>Summary</Header>
           {
             postsData.sort(compareMetadata).map((post, index) => {
-              return <PostBlock key={index} selected={pathname === '/' + post.id}>
+              return (
+                <PostBlock key={index} selected={pathname === '/' + post.id}>
                   <Link to={`/${post.id}`}>{post.title}</Link>
                 </PostBlock>
+              )
             })
           }
       </Wrapper>
