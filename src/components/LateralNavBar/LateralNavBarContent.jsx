@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import styled from 'styled-components'
 
 import { compareMetadata } from '../../utils/compare'
@@ -40,16 +42,18 @@ const PostBlock = styled.div`
   }
 `
 
-
 class LateralNavBarContent extends Component {
   render() {
-    const { postsData } = this.props
+    const { postsData, location } = this.props
+    const { pathname } = location
     return (
       <Wrapper>
         <Header>Summary</Header>
           {
             postsData.sort(compareMetadata).map((post, index) => {
-              return <PostBlock key={index} selected={false}>{post.title}</PostBlock>
+              return <PostBlock key={index} selected={pathname === '/' + post.id}>
+                  <Link to={`/${post.id}`}>{post.title}</Link>
+                </PostBlock>
             })
           }
       </Wrapper>
@@ -61,4 +65,4 @@ const mapStateToProps = state => ({
   postsData: state.reducer.postsData
 })
 
-export default connect(mapStateToProps, null)(LateralNavBarContent)
+export default withRouter(connect(mapStateToProps, null)(LateralNavBarContent))

@@ -1,8 +1,10 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { routeChanged } from '../actions'
 
+import Header from '../components/Header'
+import LateralNavBar from '../components/LateralNavBar'
 import HomePage from '../views/HomePage'
 import PostPage from '../views/PostPage'
 
@@ -19,22 +21,26 @@ class Routes extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" render={(props) => { 
-            this.onRouteChange('home')
-            return <HomePage {...props} />
-          }}/>
-          <Route exact path="/:id" render={(props) => { 
-            this.onRouteChange('post')
-            return <PostPage {...props} />
-          }}/>
-          <Route path="*" render={(props) => { 
-            this.onRouteChange('home')
-            return <HomePage {...props} />
-          }}/>
-        </Switch>
-      </BrowserRouter>
+      <Fragment>
+        <BrowserRouter>
+          <Header/>
+          <LateralNavBar/>
+          <Switch>
+            <Route exact path="/" render={(props) => { 
+              this.onRouteChange('home')
+              return <HomePage {...props} />
+            }}/>
+            <Route exact path="/:id" render={(props) => { 
+              this.onRouteChange('post')
+              return <PostPage {...props} />
+            }}/>
+            <Route path="*" render={(props) => { 
+              this.onRouteChange('home')
+              return <HomePage {...props} />
+            }}/>
+          </Switch>
+        </BrowserRouter>
+      </Fragment>
     )
   }
 }

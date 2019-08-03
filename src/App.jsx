@@ -4,8 +4,6 @@ import Routes from './routes'
 import { fetchData } from './actions'
 
 import GlobalStyle from './themes/globalStyle'
-import Header from './components/Header'
-import LateralNavBar from './components/LateralNavBar'
 
 class App extends Component {
   constructor(props) {
@@ -27,8 +25,6 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Header/>
-        <LateralNavBar/>
         <GlobalStyle />
         <Routes/>
       </Fragment>

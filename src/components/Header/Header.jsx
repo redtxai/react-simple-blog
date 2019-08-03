@@ -1,5 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import styled from 'styled-components'
 
 const HeaderRoot = styled.header`
@@ -31,17 +32,17 @@ const HeaderNavButton = styled.label`
   }
 `
 
-function Header({ routeState }) {
+function Header({ location }) {
   return (
     <HeaderRoot>
-      <HeaderNavButton selected={routeState === 'home'}>Posts</HeaderNavButton>
-      <HeaderNavButton selected={routeState === 'about'}>About</HeaderNavButton>
+      <HeaderNavButton selected={location.pathname === '/'}>
+        <Link to="/">Posts</Link>
+      </HeaderNavButton>
+      <HeaderNavButton selected={location.pathname === '/about'}>
+        <Link to="/about">About</Link>
+      </HeaderNavButton>
     </HeaderRoot>
   )
 }
 
-const mapStateToProps = state => ({
-  routeState: state.reducer.routeState
-})
-
-export default connect(mapStateToProps, null)(Header)
+export default withRouter(Header)
