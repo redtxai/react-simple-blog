@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Routes from './routes'
-import { fetchPostsData, fetchAuthorsData } from './actions'
+import { fetchData } from './actions'
 
 import GlobalStyle from './themes/globalStyle'
 import Header from './components/Header'
@@ -10,39 +10,25 @@ import LateralNavBar from './components/LateralNavBar'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.fetchPostsData = this.fetchPostsData.bind(this)
-    this.fetchAuthorsData = this.fetchAuthorsData.bind(this)
+    this.fetchData = this.fetchData.bind(this)
   }
 
   componentDidMount() {
-    this.fetchPostsData()
-    this.fetchAuthorsData()
+    this.fetchData()
   }
 
-  fetchPostsData() {
-    const { postsData, fetchPostsData } = this.props
-    if (!postsData.length) {
-      fetchPostsData()
-    }
-  }
-
-  fetchAuthorsData() {
-    const { authorsData, fetchAuthorsData } = this.props
-    if (!authorsData.length) {
-      fetchAuthorsData()
+  fetchData() {
+    const { fetchedData, fetchData } = this.props
+    if (!fetchedData) {
+      fetchData()
     }
   }
 
   render() {
-    const { routeState } = this.props
-    let lateralNavbar = null
-    if (routeState === 'home') {
-      lateralNavbar = <LateralNavBar/>
-    }
     return (
       <Fragment>
         <Header/>
-        {lateralNavbar}
+        <LateralNavBar/>
         <GlobalStyle />
         <Routes/>
       </Fragment>
@@ -51,18 +37,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  postsData: state.reducer.postsData,
-  authorsData: state.reducer.authorsData,
+  fetchedData: state.reducer.fetchedData,
   routeState: state.reducer.routeState
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPostsData: () => {
-      dispatch(fetchPostsData())
-    },
-    fetchAuthorsData: () => {
-      dispatch(fetchAuthorsData())
+    fetchData: () => {
+      dispatch(fetchData())
     }
   }
 }

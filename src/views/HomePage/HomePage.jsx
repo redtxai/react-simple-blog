@@ -49,21 +49,11 @@ class HomePage extends Component {
         titleSort: 0
       }
     }
-    this.getAuthorName = this.getAuthorName.bind(this)
     this.getFilterValue = this.getFilterValue.bind(this)
     this.getConditionalRendering = this.getConditionalRendering.bind(this)
     this.getAuthorFilter = this.getAuthorFilter.bind(this)
     this.getSort = this.getSort.bind(this)
     this.toggleSortProperties = this.toggleSortProperties.bind(this)
-  }
-
-  getAuthorName(authorId) {
-    const { authorsData } = this.props
-    const author = authorsData.find((aut) => aut.id === authorId)
-    if (!author) {
-      return ''
-    }
-    return author.name
   }
 
   getFilterValue({ target }) {
@@ -129,12 +119,14 @@ class HomePage extends Component {
         <Wrapper>
           {
             postsData.sort(this.getSort).map((post, index) => {
-              const dateFormatted = dateString(post.metadata.publishedAt)
+              const { authorName, publishedAt } = post.metadata
+              const dateFormatted = dateString(publishedAt)
               if (this.getConditionalRendering(post)) {
                 return <PostBlock
                   key={index}
+                  id={post.id}
                   title={post.title}
-                  author={this.getAuthorName(post.metadata.authorId)}
+                  author={authorName}
                   date={dateFormatted} />
               }
               return null

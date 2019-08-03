@@ -9,7 +9,7 @@ const LateralNavBarRoot = styled.div`
   transform: ${props => (props.show ? 'translateX(-280px)' : 'none')};
   transition: all 0.5s linear;
   top: 0;
-  z-index: 10;
+  z-index: 101;
   height: 100%;
   display: flex;
   align-items: center;

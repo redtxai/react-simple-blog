@@ -18,17 +18,9 @@ export const fetchingPostsData = () => {
   }
 }
 
-export const fetchPostsData = () => {
-  return (dispatch) => {
-    dispatch(fetchingPostsData())
-    return axios.get(`${apiBase}${apiPostsUrl}`)
-      .then(({ data }) => {
-        dispatch(fetchedPostsData(data))
-      })
-      .catch(error => {
-        throw(error)
-      })
-  }
+const fetchPostsData = async () => {
+  const { data } = await axios.get(`${apiBase}${apiPostsUrl}`)
+  return data
 }
 
 export const fetchedPostsData = (postsData) => {
@@ -46,17 +38,9 @@ export const fetchingAuthorsData = () => {
   }
 }
 
-export const fetchAuthorsData = () => {
-  return (dispatch) => {
-    dispatch(fetchingAuthorsData())
-    return axios.get(`${apiBase}${apiAuthorsUrl}`)
-      .then(({ data }) => {
-        dispatch(fetchedAuthorsData(data))
-      })
-      .catch(error => {
-        throw(error)
-      })
-  }
+const fetchAuthorsData = async () => {
+  const { data } = await axios.get(`${apiBase}${apiAuthorsUrl}`)
+  return data
 }
 
 export const fetchedAuthorsData = (authorsData) => {
@@ -65,6 +49,31 @@ export const fetchedAuthorsData = (authorsData) => {
     fetchedAuthorsData,
     authorsData
   }
+}
+
+export const fetchData = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchingAuthorsData())
+      const authorsData = await fetchAuthorsData()
+      dispatch(fetchedAuthorsData(authorsData))
+
+      dispatch(fetchingPostsData())
+      const postsData = await fetchPostsData()
+      dispatch(fetchedPostsData(parserPosts(postsData, authorsData)))
+    } catch(error) {
+      throw(error)
+    }
+  }
+}
+
+const parserPosts = (postsData, authorsData) => {
+  return postsData.map((post, index) => {
+    post.id = index + 1
+    const { authorId } = post.metadata
+    post.metadata.authorName = authorsData.find((aut) => aut.id === authorId).name
+    return post
+  })
 }
 
 export const routeChanged = (routeState) => {

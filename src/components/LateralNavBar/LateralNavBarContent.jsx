@@ -32,6 +32,7 @@ const PostBlock = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
   padding: 8px;
+  background-color: ${props => (props.selected ? '#EBECEE' : 'none')};
 
   &:hover {
     cursor: pointer;
@@ -48,7 +49,7 @@ class LateralNavBarContent extends Component {
         <Header>Summary</Header>
           {
             postsData.sort(compareMetadata).map((post, index) => {
-              return <PostBlock key={index}>{post.title}</PostBlock>
+              return <PostBlock key={index} selected={false}>{post.title}</PostBlock>
             })
           }
       </Wrapper>

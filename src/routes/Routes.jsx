@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { routeChanged } from '../actions'
 
 import HomePage from '../views/HomePage'
+import PostPage from '../views/PostPage'
 
 class Routes extends Component {
   constructor (props) {
@@ -23,6 +24,10 @@ class Routes extends Component {
           <Route exact path="/" render={(props) => { 
             this.onRouteChange('home')
             return <HomePage {...props} />
+          }}/>
+          <Route exact path="/:id" render={(props) => { 
+            this.onRouteChange('post')
+            return <PostPage {...props} />
           }}/>
           <Route path="*" render={(props) => { 
             this.onRouteChange('home')

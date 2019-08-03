@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const PostInternalBlock = styled.article`
@@ -46,24 +47,26 @@ const Author = styled.label`
 `
 
 const DateBlock = styled.label`
-  font-weight: bold;
+  font-style: italic;
   color: #6A6B6D;
 `
 
 function PostBlock(props) {
   return (
-    <PostInternalBlock {...props}>
-      <Title>
-        {props.title}
-      </Title>
-      <Hr/>
-      <Author>
-        {props.author}
-      </Author>
-      <DateBlock>
-        {props.date}
-      </DateBlock>
-    </PostInternalBlock>
+    <Link to={`/${props.id}`}>
+      <PostInternalBlock {...props}>
+        <Title>
+          {props.title}
+        </Title>
+        <Hr/>
+        <Author>
+          {props.author}
+        </Author>
+        <DateBlock>
+          {props.date}
+        </DateBlock>
+      </PostInternalBlock>
+    </Link>
   )
 }
 
