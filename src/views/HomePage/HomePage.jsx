@@ -78,8 +78,10 @@ class HomePage extends Component {
   }
 
   getSort(a, b) {
-    const { dateSort, titleSort } = this.state.sortProperty
-    return compareMetadata(a, b, 'publishedAt', dateSort) || compare(a, b, 'title', titleSort)
+    const { dateSort, titleSort, authorSort } = this.state.sortProperty
+    return compareMetadata(a, b, 'authorName', authorSort)
+      || compareMetadata(a, b, 'publishedAt', dateSort)
+      || compare(a, b, 'title', titleSort)
   }
 
   toggleSortProperties(prop) {
