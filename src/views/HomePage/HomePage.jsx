@@ -16,6 +16,10 @@ const Section = styled.section`
   padding: 60px 10px 10px 10px;
   overflow-x: hidden;
   overflow-y: auto;
+
+  @media screen and (max-width: 492px) {
+    padding: 60px 0px 10px 0px;
+  }
 `
 
 const Wrapper = styled.section`
@@ -26,6 +30,10 @@ const Wrapper = styled.section`
   width: 95%;
   height: 100%;
   box-sizing: border-box;
+
+  @media screen and (max-width: 350px) {
+    margin: 0;
+  }
 `
 
 const FilterWrapper = styled.section`
@@ -35,6 +43,10 @@ const FilterWrapper = styled.section`
   width: 95%;
   height: 100%;
   box-sizing: border-box;
+
+  @media screen and (max-width: 350px) {
+    margin: 0;
+  }
 `
 
 class HomePage extends Component {
