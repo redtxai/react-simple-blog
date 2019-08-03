@@ -17,19 +17,18 @@ const PostInternalBlock = styled.article`
   box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
 
   &:hover {
-    cursor: pointer;
     transform: scale(1.05);
+  }
+
+  & * {
+    cursor: pointer;
   }
 `
 
 const Title = styled.label`
   font-weight: bold;
   color: #6A6B6D;
-  height: 100px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  height: 100px;  
 `
 
 const Hr = styled.hr`
