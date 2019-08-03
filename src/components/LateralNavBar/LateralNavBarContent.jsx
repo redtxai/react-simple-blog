@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import styled from 'styled-components'
 
@@ -34,6 +33,7 @@ const PostBlock = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
   padding: 8px;
+  margin-bottom: 8px;
   background-color: ${props => (props.selected ? '#EBECEE' : 'none')};
 
   &:hover {
@@ -44,7 +44,7 @@ const PostBlock = styled.div`
 
 class LateralNavBarContent extends Component {
   render() {
-    const { postsData, location } = this.props
+    const { postsData, location, history } = this.props
     const { pathname } = location
     return (
       <Wrapper>
@@ -52,8 +52,11 @@ class LateralNavBarContent extends Component {
           {
             postsData.sort(compareMetadata).map((post, index) => {
               return (
-                <PostBlock key={index} selected={pathname === '/' + post.id}>
-                  <Link to={`/${post.id}`}>{post.title}</Link>
+                <PostBlock
+                  key={index}
+                  onClick={ () => history.push(`/${post.id}`) }
+                  selected={pathname === '/' + post.id}>
+                    {post.title}
                 </PostBlock>
               )
             })

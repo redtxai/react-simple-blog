@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import styled from 'styled-components'
 
 const PostInternalBlock = styled.article`
@@ -52,21 +52,19 @@ const DateBlock = styled.label`
 
 function PostBlock(props) {
   return (
-    <Link to={`/${props.id}`}>
-      <PostInternalBlock {...props}>
-        <Title>
-          {props.title}
-        </Title>
-        <Hr/>
-        <Author>
-          {props.author}
-        </Author>
-        <DateBlock>
-          {props.date}
-        </DateBlock>
-      </PostInternalBlock>
-    </Link>
+    <PostInternalBlock onClick={ () => props.history.push(`/${props.id}`) } {...props}>
+      <Title>
+        {props.title}
+      </Title>
+      <Hr/>
+      <Author>
+        {props.author}
+      </Author>
+      <DateBlock>
+        {props.date}
+      </DateBlock>
+    </PostInternalBlock>
   )
 }
 
-export default PostBlock
+export default withRouter(PostBlock)

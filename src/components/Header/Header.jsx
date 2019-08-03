@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import styled from 'styled-components'
 
@@ -32,14 +31,14 @@ const HeaderNavButton = styled.label`
   }
 `
 
-function Header({ location }) {
+function Header({ location, history }) {
   return (
     <HeaderRoot>
-      <HeaderNavButton selected={location.pathname === '/'}>
-        <Link to="/">Posts</Link>
+      <HeaderNavButton onClick={ () => history.push('/') } selected={location.pathname === '/'}>
+        Posts
       </HeaderNavButton>
-      <HeaderNavButton selected={location.pathname === '/about'}>
-        <Link to="/about">About</Link>
+      <HeaderNavButton onClick={ () => history.push('/about') } selected={location.pathname === '/about'}>
+        About
       </HeaderNavButton>
     </HeaderRoot>
   )

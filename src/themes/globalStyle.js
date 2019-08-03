@@ -20,11 +20,6 @@ const GlobalStyle = createGlobalStyle`
   label {
     user-select: none;
   }
-
-  a {
-    color: inherit;
-    text-decoration: inherit;
-  }
 `
 
 export default GlobalStyle
