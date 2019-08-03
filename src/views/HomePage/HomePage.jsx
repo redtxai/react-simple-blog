@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -6,6 +6,8 @@ import { compare, compareMetadata } from '../../utils/compare'
 import { dateString } from '../../utils/dateUtils'
 import SearchBox from './SearchBox'
 import PostBlock from './PostBlock'
+import SearchPlaceholder from '../../components/Placeholders/SearchPlaceholder';
+import PostPlaceholder from '../../components/Placeholders/PostPlaceholder';
 
 const Section = styled.section`
   display: flex;
@@ -112,8 +114,9 @@ class HomePage extends Component {
     const { postsData, authorsData } = this.props
     const { authorFilter, sortProperty } = this.state
     let searchBox
+    let postsBlocks
 
-    if (authorsData.length) {
+    if (authorsData.length && postsData.length) {
       searchBox = (
         <SearchBox
           onType={this.getFilterValue}
@@ -123,6 +126,29 @@ class HomePage extends Component {
           sortProperty={sortProperty}
           toggleSortProperties={this.toggleSortProperties}/>
       )
+
+      postsBlocks = postsData.sort(this.getSort).map((post, index) => {
+        const { authorName, publishedAt } = post.metadata
+        const dateFormatted = dateString(publishedAt)
+        if (this.getConditionalRendering(post)) {
+          return <PostBlock
+            key={index}
+            id={post.id}
+            title={post.title}
+            author={authorName}
+            date={dateFormatted} />
+        }
+        return null
+      })
+    } else {
+      searchBox = <SearchPlaceholder/>
+      postsBlocks = (
+        <Fragment>
+          <PostPlaceholder/>
+          <PostPlaceholder/>
+          <PostPlaceholder/>
+        </Fragment>
+      )
     }
 
     return (
@@ -131,21 +157,7 @@ class HomePage extends Component {
           {searchBox}
         </FilterWrapper>
         <Wrapper>
-          {
-            postsData.sort(this.getSort).map((post, index) => {
-              const { authorName, publishedAt } = post.metadata
-              const dateFormatted = dateString(publishedAt)
-              if (this.getConditionalRendering(post)) {
-                return <PostBlock
-                  key={index}
-                  id={post.id}
-                  title={post.title}
-                  author={authorName}
-                  date={dateFormatted} />
-              }
-              return null
-            })
-          }
+          {postsBlocks}
         </Wrapper>
       </Section>
     )
