@@ -7,7 +7,7 @@ import {
   } from './types'
 import axios from 'axios'
 
-const apiBase = 'http://www.mocky.io/v2'
+const apiBase = 'https://www.mocky.io/v2'
 const apiPostsUrl = '/5be5e3fa2f000082000fc3f8'
 const apiAuthorsUrl = '/5be5e3ae2f00005b000fc3f6'
 
