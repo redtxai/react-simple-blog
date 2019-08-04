@@ -5,7 +5,7 @@ import LateralNavBarContent from './LateralNavBarContent'
 
 const LateralNavBarRoot = styled.div`
   position: fixed;
-  right: -290px;
+  right: -287px;
   transform: ${props => (props.show ? 'translateX(-280px)' : 'none')};
   transition: all 0.5s linear;
   top: 0;
@@ -17,10 +17,13 @@ const LateralNavBarRoot = styled.div`
 `
 
 const LateralNavBarTrigger = styled.label`
-  width: 20px;
+  position: absolute;
+  left: -26px;
+  top: 50%;
+  width: 30px;
   height: 40px;
   border-radius: 5px 0px 0px 5px;
-  padding: 0px 15px;
+  box-sizing: border-box;
   font-weight: bold;
   background-color: white;
   box-shadow: -3px 1px 5px -1px rgba(0,0,0,0.75);
