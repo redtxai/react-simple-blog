@@ -4,7 +4,8 @@ import styled from 'styled-components'
 
 import { compare, compareMetadata } from '../../utils/compare'
 import { dateString } from '../../utils/dateUtils'
-import SearchBox from './SearchBox'
+
+import SearchBox from '../../components/SearchBox'
 import PostBlock from './PostBlock'
 import SearchPlaceholder from '../../components/Placeholders/SearchPlaceholder';
 import PostPlaceholder from '../../components/Placeholders/PostPlaceholder';

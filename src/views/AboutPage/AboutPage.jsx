@@ -37,7 +37,6 @@ const Body = styled.div`
   border-bottom: 1px solid #c3c3c4;
   color: #6A6B6D;
   line-height: 1.5;
-  white-space: pre;
 `
 
 const Footer = styled.footer`
