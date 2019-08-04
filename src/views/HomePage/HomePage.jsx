@@ -24,12 +24,21 @@ const Section = styled.section`
   }
 `
 
-const Wrapper = styled.section`
+const ContainerLimiter = styled.section`
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  max-width: 621px;
+`
+
+const Wrapper = styled.section`
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
-  width: 95%;
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
 
@@ -39,10 +48,9 @@ const Wrapper = styled.section`
 `
 
 const FilterWrapper = styled.section`
-  margin: auto;
   padding: 10px;
   display: flex;
-  width: 95%;
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
 
@@ -153,12 +161,14 @@ class HomePage extends Component {
 
     return (
       <Section>
-        <FilterWrapper>
-          {searchBox}
-        </FilterWrapper>
-        <Wrapper>
-          {postsBlocks}
-        </Wrapper>
+        <ContainerLimiter>
+          <FilterWrapper>
+            {searchBox}
+          </FilterWrapper>
+          <Wrapper>
+            {postsBlocks}
+          </Wrapper>
+        </ContainerLimiter>
       </Section>
     )
   }
