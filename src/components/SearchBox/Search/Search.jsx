@@ -5,7 +5,7 @@ import caret from '../../../assets/caret.png'
 
 const Wrapper = styled.p`
   margin: 0;
-  height: 20px;
+  height: 30px;
   display: flex;
 `
 
@@ -18,8 +18,17 @@ const FilterLabel = styled.label`
 
 const InputField = styled.input`
   border-radius: 5px;
+  outline: none;
   margin-right: 12px;
   flex: 2;
+  color: #6A6B6D;
+  border: 0;
+  border: 1px solid #c3c3c4;
+  padding: 2px 5px;
+
+  &:focus {
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  }
 `
 
 const DeepFilterCaret = styled.img`
