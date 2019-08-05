@@ -2,12 +2,14 @@ import {
   FETCHING_POSTS_DATA,
   FETCHED_POSTS_DATA,
   FETCHING_AUTHORS_DATA,
-  FETCHED_AUTHORS_DATA
-  } from '../actions/types'
+  FETCHED_AUTHORS_DATA,
+  FETCHED_DATA
+} from '../actions/types'
 
 const initialState = {
   postsData: [],
-  authorsData: []
+  authorsData: [],
+  fetchedData: false
 }
 
 export default function blogReducer(state = initialState, action) {
@@ -37,6 +39,12 @@ export default function blogReducer(state = initialState, action) {
         ...state,
         fetchedAuthorsData,
         authorsData
+      }
+    case FETCHED_DATA:
+      const { fetchedData } = action
+      return {
+        ...state,
+        fetchedData
       }
     default:
       return state

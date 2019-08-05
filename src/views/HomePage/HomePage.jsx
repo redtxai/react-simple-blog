@@ -120,12 +120,12 @@ class HomePage extends Component {
   }
 
   render() {
-    const { postsData, authorsData } = this.props
+    const { postsData, authorsData, fetchedData } = this.props
     const { authorFilter, sortProperty } = this.state
     let searchBox
     let postsBlocks
 
-    if (authorsData.length && postsData.length) {
+    if (fetchedData) {
       searchBox = (
         <SearchBox
           onType={this.getFilterValue}
@@ -140,12 +140,14 @@ class HomePage extends Component {
         const { authorName, publishedAt } = post.metadata
         const dateFormatted = dateString(publishedAt)
         if (this.getConditionalRendering(post)) {
-          return <PostBlock
-            key={index}
-            id={post.id}
-            title={post.title}
-            author={authorName}
-            date={dateFormatted} />
+          return (
+            <PostBlock
+              key={index}
+              id={post.id}
+              title={post.title}
+              author={authorName}
+              date={dateFormatted} />
+          )
         }
         return null
       })
@@ -153,6 +155,9 @@ class HomePage extends Component {
       searchBox = <SearchPlaceholder/>
       postsBlocks = (
         <Fragment>
+          <PostPlaceholder/>
+          <PostPlaceholder/>
+          <PostPlaceholder/>
           <PostPlaceholder/>
           <PostPlaceholder/>
           <PostPlaceholder/>
@@ -176,6 +181,7 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
+  fetchedData: state.reducer.fetchedData,
   postsData: state.reducer.postsData,
   authorsData: state.reducer.authorsData
 })

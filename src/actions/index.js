@@ -2,7 +2,8 @@ import {
   FETCHING_POSTS_DATA,
   FETCHED_POSTS_DATA,
   FETCHING_AUTHORS_DATA,
-  FETCHED_AUTHORS_DATA
+  FETCHED_AUTHORS_DATA,
+  FETCHED_DATA
 } from './types'
 import axios from 'axios'
 
@@ -60,9 +61,17 @@ export const fetchData = () => {
       dispatch(fetchingPostsData())
       const postsData = await fetchPostsData()
       dispatch(fetchedPostsData(parserPosts(postsData, authorsData)))
+      dispatch(fetchedData())
     } catch(error) {
       throw(error)
     }
+  }
+}
+
+export const fetchedData = () => {
+  return {
+    type: FETCHED_DATA,
+    fetchedData: true
   }
 }
 
