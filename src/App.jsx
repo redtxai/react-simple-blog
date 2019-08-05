@@ -33,8 +33,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  fetchedData: state.reducer.fetchedData,
-  routeState: state.reducer.routeState
+  fetchedData: state.reducer.fetchedData
 })
 
 const mapDispatchToProps = dispatch => {

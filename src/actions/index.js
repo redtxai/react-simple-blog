@@ -2,9 +2,8 @@ import {
   FETCHING_POSTS_DATA,
   FETCHED_POSTS_DATA,
   FETCHING_AUTHORS_DATA,
-  FETCHED_AUTHORS_DATA,
-  ROUTE_CHANGED
-  } from './types'
+  FETCHED_AUTHORS_DATA
+} from './types'
 import axios from 'axios'
 
 const apiBase = 'https://www.mocky.io/v2'
@@ -74,11 +73,4 @@ const parserPosts = (postsData, authorsData) => {
     post.metadata.authorName = authorsData.find((aut) => aut.id === authorId).name
     return post
   })
-}
-
-export const routeChanged = (routeState) => {
-  return {
-    type: ROUTE_CHANGED,
-    routeState
-  }
 }

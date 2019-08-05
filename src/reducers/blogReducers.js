@@ -2,14 +2,12 @@ import {
   FETCHING_POSTS_DATA,
   FETCHED_POSTS_DATA,
   FETCHING_AUTHORS_DATA,
-  FETCHED_AUTHORS_DATA,
-  ROUTE_CHANGED
+  FETCHED_AUTHORS_DATA
   } from '../actions/types'
 
 const initialState = {
   postsData: [],
-  authorsData: [],
-  routeState: 'home'
+  authorsData: []
 }
 
 export default function blogReducer(state = initialState, action) {
@@ -39,12 +37,6 @@ export default function blogReducer(state = initialState, action) {
         ...state,
         fetchedAuthorsData,
         authorsData
-      }
-    case ROUTE_CHANGED:
-      const { routeState } = action
-      return {
-        ...state,
-        routeState
       }
     default:
       return state
