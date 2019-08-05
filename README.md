@@ -20,7 +20,7 @@ This script will install all dependecies and build the application.
 
 `npm start`
 
-This script will run a node server and the previoulsy builded code in http://localhost
+This script will run a node server with the previously building code in http://localhost
 
 
 `npm build`
@@ -30,4 +30,4 @@ This script will build the application for production mode.
 
 `npm run dev`
 
-This script will the system in dev mode and it'll open in http://localhost:3000
+This script will run the system in dev mode and it'll open automatically in http://localhost:3000
