@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { dateString } from '../../utils/dateUtils'
@@ -55,39 +55,28 @@ const DateLabel = styled.label`
   font-style: italic;
 `
 
-class PostPage extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     filter: ''
-  //   }
-  //   this.getAuthorName = this.getAuthorName.bind(this)
-  // }
-
-  render() {
-    const { match, postsData } = this.props
-    const postId = parseInt(match.params.id)
-    if (!postId || !postsData.length) {
-      return null
-    }
-    const post = postsData.find((p) => p.id === postId)
-    const { authorName, publishedAt } = post.metadata
-    return (
-      <Container>
-        <Wrapper>
-          <Header>
-            <H2>{post.title}</H2>
-          </Header>
-          <Body>
-            {post.body}
-          </Body>
-          <Footer>
-            <AuthorLabel>{authorName}</AuthorLabel>&nbsp;-&nbsp;<DateLabel>{dateString(publishedAt)}</DateLabel>
-          </Footer>
-        </Wrapper>
-      </Container>
-    )
+function PostPage({ match, postsData }) {
+  const postId = parseInt(match.params.id)
+  if (!postId || !postsData.length) {
+    return null
   }
+  const post = postsData.find((p) => p.id === postId)
+  const { authorName, publishedAt } = post.metadata
+  return (
+    <Container>
+      <Wrapper>
+        <Header>
+          <H2>{post.title}</H2>
+        </Header>
+        <Body>
+          {post.body}
+        </Body>
+        <Footer>
+          <AuthorLabel>{authorName}</AuthorLabel>&nbsp;-&nbsp;<DateLabel>{dateString(publishedAt)}</DateLabel>
+        </Footer>
+      </Wrapper>
+    </Container>
+  )
 }
 
 const mapStateToProps = state => ({
